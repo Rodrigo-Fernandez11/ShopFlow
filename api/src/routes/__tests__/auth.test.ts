@@ -112,7 +112,7 @@ describe('POST /api/auth/login', () => {
   it('returns 200 with tokens on successful login', async () => {
     const { default: bcrypt } = await import('bcryptjs');
     db.user.findUnique.mockResolvedValue(baseUser);
-    vi.mocked(bcrypt.compare).mockResolvedValue(true as never);
+    vi.mocked(bcrypt.compare).mockResolvedValue(true);
     db.refreshToken.create.mockResolvedValue(baseRefreshToken);
 
     const app = await buildApp();
@@ -142,7 +142,7 @@ describe('POST /api/auth/login', () => {
   it('returns 401 when password is wrong', async () => {
     const { default: bcrypt } = await import('bcryptjs');
     db.user.findUnique.mockResolvedValue(baseUser);
-    vi.mocked(bcrypt.compare).mockResolvedValue(false as never);
+    vi.mocked(bcrypt.compare).mockResolvedValue(false);
 
     const app = await buildApp();
     const res = await request(app)
@@ -163,7 +163,7 @@ describe('POST /api/auth/refresh', () => {
     vi.mocked(jwtLib.verify).mockReturnValue({
       userId: 'user-1',
       type: 'refresh',
-    } as never);
+    });
     db.refreshToken.findUnique.mockResolvedValue(baseRefreshToken);
 
     const app = await buildApp();
@@ -180,7 +180,7 @@ describe('POST /api/auth/refresh', () => {
     vi.mocked(jwtLib.verify).mockReturnValue({
       userId: 'user-1',
       type: 'refresh',
-    } as never);
+    });
     db.refreshToken.findUnique.mockResolvedValue(null);
 
     const app = await buildApp();
