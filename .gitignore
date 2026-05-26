@@ -5,3 +5,8 @@ dist
 .DS_Store
 *.log
 pnpm-lock.yaml
+
+# IDE and tooling
+.vscode
+.atl
+.claude
